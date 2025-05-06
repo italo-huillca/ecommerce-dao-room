@@ -25,4 +25,16 @@ class ProductoViewModel(application: Application) : AndroidViewModel(application
             productoDao.insertProducto(producto)
         }
     }
+
+    fun updateProducto(producto: Producto) {
+        viewModelScope.launch {
+            productoDao.updateProducto(producto)
+        }
+    }
+
+    fun deleteProducto(producto: Producto) {
+        viewModelScope.launch {
+            productoDao.deleteProducto(producto)
+        }
+    }
 }

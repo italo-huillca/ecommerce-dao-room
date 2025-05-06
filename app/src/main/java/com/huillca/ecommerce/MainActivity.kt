@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import com.huillca.ecommerce.model.Producto
 import com.huillca.ecommerce.ui.ProductListScreen
 import com.huillca.ecommerce.ui.ProductoViewModel
 import com.huillca.ecommerce.ui.RegisterProductScreen
@@ -28,7 +29,17 @@ class MainActivity : ComponentActivity() {
                         )
                         productoViewModel.insertProducto(producto)
                     }
-                    ProductListScreen(productosFlow = productoViewModel.productos)
+                    ProductListScreen(
+                        productosFlow = productoViewModel.productos,
+                        onEdit = { producto ->
+                            // Lógica para editar el producto (puedes abrir un diálogo o una nueva pantalla)
+                            val updatedProducto = producto.copy(nombre = "Nuevo Nombre")
+                            productoViewModel.updateProducto(updatedProducto)
+                        },
+                        onDelete = { producto ->
+                            productoViewModel.deleteProducto(producto)
+                        }
+                    )
                 }
             }
         }
