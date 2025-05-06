@@ -8,6 +8,7 @@ import com.huillca.ecommerce.db.AppDatabase
 import com.huillca.ecommerce.model.Producto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import android.util.Log
 
 class ProductoViewModel(application: Application) : AndroidViewModel(application) {
     private val db: AppDatabase = Room.databaseBuilder(
@@ -22,6 +23,7 @@ class ProductoViewModel(application: Application) : AndroidViewModel(application
 
     fun insertProducto(producto: Producto) {
         viewModelScope.launch {
+            Log.d("ProductoViewModel", "Inserting producto: $producto")
             productoDao.insertProducto(producto)
         }
     }

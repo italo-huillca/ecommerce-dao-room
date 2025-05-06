@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import android.util.Log
 
 @Composable
 fun RegisterProductScreen(onRegister: (String, String, Double, Int) -> Unit) {
@@ -57,8 +58,14 @@ fun RegisterProductScreen(onRegister: (String, String, Double, Int) -> Unit) {
 
         Button(
             onClick = {
-                val precioDouble = precio.toDoubleOrNull() ?: 0.0
-                val cantidadInt = cantidad.toIntOrNull() ?: 0
+                val precioDouble = precio.toDoubleOrNull()
+                val cantidadInt = cantidad.toIntOrNull()
+
+                if (precioDouble == null || cantidadInt == null) {
+                    Log.d("RegisterProductScreen", "Invalid input: Precio or Cantidad is not a valid number")
+                    return@Button
+                }
+
                 onRegister(nombre, descripcion, precioDouble, cantidadInt)
             },
             modifier = Modifier.fillMaxWidth()

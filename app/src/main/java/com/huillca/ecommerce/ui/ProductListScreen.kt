@@ -42,7 +42,6 @@ fun ProductCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        elevation = 4.dp
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Nombre: ${producto.nombre}")
