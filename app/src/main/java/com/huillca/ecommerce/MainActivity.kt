@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.huillca.ecommerce.model.Producto
+import com.huillca.ecommerce.ui.ProductListScreen
 import com.huillca.ecommerce.ui.ProductoViewModel
 import com.huillca.ecommerce.ui.RegisterProductScreen
 import com.huillca.ecommerce.ui.theme.EcommerceTheme
@@ -18,14 +18,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EcommerceTheme {
-                RegisterProductScreen { nombre, descripcion, precio, cantidad ->
-                    val producto = Producto(
-                        nombre = nombre,
-                        descripcion = descripcion,
-                        precio = precio,
-                        cantidad = cantidad
-                    )
-                    productoViewModel.insertProducto(producto)
+                Column {
+                    RegisterProductScreen { nombre, descripcion, precio, cantidad ->
+                        val producto = Producto(
+                            nombre = nombre,
+                            descripcion = descripcion,
+                            precio = precio,
+                            cantidad = cantidad
+                        )
+                        productoViewModel.insertProducto(producto)
+                    }
+                    ProductListScreen(productosFlow = productoViewModel.productos)
                 }
             }
         }

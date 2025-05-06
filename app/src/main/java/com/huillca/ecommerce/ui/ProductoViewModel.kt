@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.huillca.ecommerce.db.AppDatabase
 import com.huillca.ecommerce.model.Producto
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ProductoViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,6 +17,8 @@ class ProductoViewModel(application: Application) : AndroidViewModel(application
     ).build()
 
     private val productoDao = db.productoDao()
+
+    val productos: Flow<List<Producto>> = productoDao.getAllProductos()
 
     fun insertProducto(producto: Producto) {
         viewModelScope.launch {
