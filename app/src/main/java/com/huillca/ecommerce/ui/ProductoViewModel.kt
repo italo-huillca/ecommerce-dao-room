@@ -36,6 +36,7 @@ class ProductoViewModel(application: Application) : AndroidViewModel(application
 
     fun deleteProducto(producto: Producto) {
         viewModelScope.launch {
+            Log.d("ProductoViewModel", "Deleting producto: $producto")
             productoDao.deleteProducto(producto)
         }
     }

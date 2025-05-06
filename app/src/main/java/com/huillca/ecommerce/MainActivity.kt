@@ -15,10 +15,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.huillca.ecommerce.ui.EditProductScreen
 
 class MainActivity : ComponentActivity() {
     private val productoViewModel: ProductoViewModel by viewModels()
@@ -59,6 +61,22 @@ class MainActivity : ComponentActivity() {
                                 productoViewModel.deleteProducto(producto)
                             }
                         )
+                    }
+
+                    composable("edit_product/{productId}") { backStackEntry ->
+                        val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
+                        val producto = productoViewModel.productos.collectAsState(initial = emptyList()).value
+                            .find { it.id == productId }
+
+                        producto?.let {
+                            EditProductScreen(
+                                producto = it,
+                                onSave = { updatedProducto ->
+                                    productoViewModel.updateProducto(updatedProducto)
+                                    navController.navigate("product_list")
+                                }
+                            )
+                        }
                     }
                 }
             }

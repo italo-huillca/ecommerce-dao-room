@@ -53,7 +53,11 @@ fun ProductCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Button(onClick = { onEdit(producto) }) {
+                Button(onClick = { 
+                    // Lógica para editar el producto
+                    val updatedProducto = producto.copy(nombre = "Nombre Editado")
+                    onEdit(updatedProducto)
+                }) {
                     Text("Editar")
                 }
                 Button(onClick = { onDelete(producto) }) {
